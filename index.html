@@ -138,6 +138,10 @@
     .guest-title { font: 1.65rem var(--serif); }
     .guest-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
     .guest-dietary-detail, .guest-observations { margin-top: 14px; }
+    .guest-add-more { display: grid; justify-items: center; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--ink-soft); text-align: center; }
+    .guest-add-more p { margin: 0; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .add-guest-inline { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--terracotta); border-radius: 50%; background: transparent; color: var(--terracotta); cursor: pointer; font-size: 2rem; font-weight: 300; line-height: 1; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .add-guest-inline:hover { background: var(--terracotta); color: var(--paper); transform: translateY(-2px); }
     .text-button { border: 0; background: transparent; color: var(--terracotta); cursor: pointer; font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .consent { display: flex; align-items: flex-start; gap: 11px; color: var(--ink-soft); font-size: .75rem; font-weight: 400; letter-spacing: 0; line-height: 1.55; text-transform: none; }
     .consent input { width: auto; margin-top: 5px; accent-color: var(--terracotta); }
@@ -260,7 +264,7 @@
           <iframe name="rsvp-sink" id="rsvp-sink" class="hidden" title="Envío de confirmación"></iframe>
           <form class="form" id="rsvp-form">
             <input class="hidden" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <div class="guest-head"><h3>¿Quiénes venís?</h3><button class="text-button" id="add-guest" type="button">+ Añadir persona</button></div>
+            <div class="guest-head"><h3>¿Quiénes venís?</h3></div>
             <div id="guests"></div>
             <label class="consent"><input type="checkbox" name="consent" required><span>Acepto que estos nombres se utilicen exclusivamente para organizar la boda.</span></label>
             <p class="privacy">No publicaremos estos datos ni los compartiremos fuera de la organización de la boda.</p>
@@ -276,13 +280,17 @@
 
   <template id="guest-template">
     <div class="guest">
-      <div class="guest-head"><strong class="guest-title">Persona</strong><button class="text-button remove" type="button">Eliminar</button></div>
+      <div class="guest-head"><strong class="guest-title">Invitado</strong><button class="text-button remove" type="button">Eliminar</button></div>
       <div class="guest-fields">
         <label>Nombre completo<input data-field="name" required maxlength="120" placeholder="Tu nombre y apellidos"></label>
         <label>Necesidad alimentaria<select data-field="dietaryType"><option value="none">Ninguna</option><option value="allergy">Alergia</option><option value="intolerance">Intolerancia</option><option value="celiac">Celiaquía</option><option value="vegetarian">Vegetariano/a</option><option value="vegan">Vegano/a</option><option value="other">Otro</option></select></label>
       </div>
       <label class="guest-dietary-detail hidden">Cuéntanos cuál<input data-field="dietaryDetail" maxlength="240" placeholder="Por ejemplo, alergia a los frutos secos"></label>
       <label class="guest-observations">Observaciones de esta persona (opcional)<textarea data-field="observations" rows="2" maxlength="400" placeholder="Cualquier detalle que debamos tener en cuenta"></textarea></label>
+      <div class="guest-add-more">
+        <p>¿Vienes acompañado de alguien más?</p>
+        <button class="add-guest-inline" type="button" aria-label="Añadir otro invitado">＋</button>
+      </div>
     </div>
   </template>
 
@@ -302,15 +310,16 @@
 
     const guests = document.getElementById("guests");
     const template = document.getElementById("guest-template");
-    function renumber() {
-      [...guests.children].forEach((guest, index) => {
-        guest.querySelector(".guest-title").textContent = `Persona ${index + 1}`;
+    function updateGuestActions() {
+      [...guests.children].forEach(guest => {
+        guest.querySelector(".guest-title").textContent = "Invitado";
         guest.querySelector(".remove").classList.toggle("hidden", guests.children.length === 1);
       });
     }
     function addGuest() {
       const node = template.content.firstElementChild.cloneNode(true);
-      node.querySelector(".remove").onclick = () => { node.remove(); renumber(); };
+      node.querySelector(".remove").onclick = () => { node.remove(); updateGuestActions(); };
+      node.querySelector(".add-guest-inline").onclick = addGuest;
       const dietary = node.querySelector('[data-field="dietaryType"]');
       const detail = node.querySelector(".guest-dietary-detail");
       const detailText = node.querySelector('[data-field="dietaryDetail"]');
@@ -321,10 +330,10 @@
         if (!visible) detailText.value = "";
       };
       guests.appendChild(node);
-      renumber();
+      updateGuestActions();
+      node.querySelector('[data-field="name"]').focus();
     }
     addGuest();
-    document.getElementById("add-guest").onclick = addGuest;
     let submitTimer;
     window.addEventListener("message", event => {
       const trusted = event.origin === "https://script.google.com" || event.origin.endsWith(".googleusercontent.com");
