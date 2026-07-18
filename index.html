@@ -73,7 +73,7 @@
     .intro {
       max-width: 1040px;
       margin: auto;
-      padding: clamp(94px, 13vw, 170px) clamp(24px, 6vw, 80px);
+      padding: clamp(70px, 9vw, 112px) clamp(24px, 6vw, 80px);
       text-align: center;
     }
     .intro h2 { margin: 0 auto 34px; font-size: clamp(3rem, 6vw, 5.8rem); letter-spacing: -.045em; }
@@ -83,7 +83,7 @@
     .details {
       background: var(--ivory);
       color: var(--ink);
-      padding: clamp(80px, 10vw, 130px) clamp(24px, 6vw, 80px);
+      padding: clamp(62px, 8vw, 96px) clamp(24px, 6vw, 80px);
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
     }
@@ -106,8 +106,8 @@
     .countdown strong { display: block; color: var(--ink); font: clamp(1.8rem, 4vw, 3rem) var(--serif); }
     .countdown span { color: var(--ink-soft); font-size: .58rem; letter-spacing: .16em; text-transform: uppercase; }
 
-    .story { overflow: hidden; padding: clamp(100px, 13vw, 170px) 0; background: var(--ivory); }
-    .story-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1180px; margin: 0 auto 62px; padding: 0 clamp(24px, 6vw, 80px); align-items: end; }
+    .story { overflow: hidden; padding: clamp(76px, 10vw, 118px) 0; background: var(--ivory); }
+    .story-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 38px; max-width: 1180px; margin: 0 auto 44px; padding: 0 clamp(24px, 6vw, 80px); align-items: end; }
     .story h2 { margin-bottom: 0; font-size: clamp(3.2rem, 6vw, 6rem); letter-spacing: -.045em; }
     .story-intro { max-width: 500px; margin: 0 0 8px auto; color: var(--ink-soft); font: 1.08rem/1.8 var(--serif); }
     .story-rail { width: 100%; overflow: hidden; }
@@ -123,7 +123,7 @@
     .story-card img { width: 100%; height: 100%; object-fit: cover; }
     @keyframes story-scroll { to { transform: translateX(calc(-50% - var(--gap) / 2)); } }
 
-    .rsvp { padding: clamp(100px, 13vw, 170px) clamp(22px, 6vw, 80px); background: var(--ivory); }
+    .rsvp { padding: clamp(76px, 10vw, 118px) clamp(22px, 6vw, 80px); background: var(--ivory); }
     .rsvp-layout { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(44px, 8vw, 120px); max-width: 1180px; margin: auto; align-items: start; }
     .rsvp h2 { margin-bottom: 25px; font-size: clamp(3.6rem, 7vw, 6.8rem); letter-spacing: -.05em; }
     .rsvp-lead { color: var(--ink-soft); font: 1.08rem/1.8 var(--serif); }
@@ -133,9 +133,10 @@
     textarea { min-height: 92px; border: 1px solid var(--line); padding: 12px; resize: vertical; }
     input:focus, select:focus, textarea:focus { border-color: var(--terracotta); box-shadow: 0 2px 0 var(--terracotta); }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .guest { margin: 18px 0 30px; padding: 26px; border: 1px solid var(--line); background: #f3ecdf; }
+    .guest { margin: 14px 0 22px; padding: 20px; border: 1px solid var(--line); background: #f3ecdf; }
     .guest-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
     .guest-title { font: 1.65rem var(--serif); }
+    .guest-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
     .text-button { border: 0; background: transparent; color: var(--terracotta); cursor: pointer; font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .consent { display: flex; align-items: flex-start; gap: 11px; color: var(--ink-soft); font-size: .75rem; font-weight: 400; letter-spacing: 0; line-height: 1.55; text-transform: none; }
     .consent input { width: auto; margin-top: 5px; accent-color: var(--terracotta); }
@@ -151,6 +152,7 @@
       .nav { justify-content: center; padding: 13px 20px; }
       .nav-links a:not(.nav-cta) { display: none; }
       .hero-meta { flex-wrap: wrap; gap: 7px 20px; padding: 15px 20px; text-align: center; }
+      .guest-fields { grid-template-columns: 1fr; gap: 12px; }
       .hero-meta span:first-child { width: 100%; }
       .story-heading, .rsvp-layout { grid-template-columns: 1fr; }
       .story-heading { gap: 24px; }
@@ -251,22 +253,16 @@
         <div>
           <p class="eyebrow">El resultado que esperamos</p>
           <h2 id="rsvp-title">¿Nos acompañáis?</h2>
-          <p class="rsvp-lead">Una persona puede responder por la pareja, familia o grupo que comparte invitación.</p>
+          <p class="rsvp-lead">Nos hace mucha ilusión saber quién estará con nosotros. Añade aquí a cada persona que vaya a acompañarnos, con sus necesidades para la mesa.</p>
         </div>
         <div>
           <iframe name="rsvp-sink" id="rsvp-sink" class="hidden" title="Envío de confirmación"></iframe>
           <form class="form" id="rsvp-form">
             <input class="hidden" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <div class="grid">
-              <label>Nombre de la persona que responde<input name="householdName" required maxlength="120"></label>
-              <label>Teléfono<input name="phone" required maxlength="30"></label>
-            </div>
-            <label>Correo electrónico<input name="email" type="email" maxlength="180"></label>
-            <div class="guest-head"><h3>Personas incluidas</h3><button class="text-button" id="add-guest" type="button">+ Añadir persona</button></div>
+            <div class="guest-head"><h3>¿Quiénes venís?</h3><button class="text-button" id="add-guest" type="button">+ Añadir persona</button></div>
             <div id="guests"></div>
-            <label>Observaciones<textarea name="notes" rows="4" maxlength="800"></textarea></label>
-            <label class="consent"><input type="checkbox" name="consent" required><span>Autorizo el tratamiento de estos datos exclusivamente para gestionar la asistencia y comunicar las necesidades alimentarias al proveedor correspondiente.</span></label>
-            <p class="privacy">Los datos no se publicarán ni se compartirán con terceros ajenos a la organización. Las necesidades alimentarias se eliminarán cuando dejen de ser necesarias.</p>
+            <label class="consent"><input type="checkbox" name="consent" required><span>Acepto que estos nombres se utilicen exclusivamente para organizar la boda.</span></label>
+            <p class="privacy">No publicaremos estos datos ni los compartiremos fuera de la organización de la boda.</p>
             <button class="submit" type="submit">Enviar confirmación</button>
             <p class="message" id="message" aria-live="polite"></p>
           </form>
@@ -280,13 +276,10 @@
   <template id="guest-template">
     <div class="guest">
       <div class="guest-head"><strong class="guest-title">Persona</strong><button class="text-button remove" type="button">Eliminar</button></div>
-      <div class="grid">
-        <label>Nombre y apellidos<input data-field="name" required maxlength="120"></label>
-        <label>Tipo de asistente<select data-field="ageGroup"><option value="adult">Adulto</option><option value="child">Niño/a</option></select></label>
+      <div class="guest-fields">
+        <label>Nombre completo<input data-field="name" required maxlength="120" placeholder="Tu nombre y apellidos"></label>
+        <label>Intolerancias o alergias<input data-field="dietaryDetail" maxlength="240" placeholder="Ninguna"></label>
       </div>
-      <label>Asistencia a la boda<select data-field="attendanceCivil" required><option value="">Selecciona una opción</option><option value="yes">Sí, asistiré</option><option value="no">No podré asistir</option><option value="pending">Todavía no lo sé</option></select></label>
-      <label>Necesidad alimentaria<select data-field="dietaryType"><option value="none">Ninguna</option><option value="allergy">Alergia</option><option value="intolerance">Intolerancia</option><option value="celiac">Celiaquía</option><option value="vegetarian">Vegetariano/a</option><option value="vegan">Vegano/a</option><option value="other">Otra</option></select></label>
-      <label class="dietary-detail hidden">Detalle para el catering<textarea data-field="dietaryDetail" rows="3" maxlength="500"></textarea></label>
     </div>
   </template>
 
@@ -315,21 +308,11 @@
     function addGuest() {
       const node = template.content.firstElementChild.cloneNode(true);
       node.querySelector(".remove").onclick = () => { node.remove(); renumber(); };
-      const dietary = node.querySelector('[data-field="dietaryType"]');
-      const detail = node.querySelector(".dietary-detail");
-      const detailText = node.querySelector('[data-field="dietaryDetail"]');
-      dietary.onchange = () => {
-        const visible = dietary.value !== "none";
-        detail.classList.toggle("hidden", !visible);
-        detailText.required = visible;
-        if (!visible) detailText.value = "";
-      };
       guests.appendChild(node);
       renumber();
     }
     addGuest();
     document.getElementById("add-guest").onclick = addGuest;
-
     let submitTimer;
     window.addEventListener("message", event => {
       const trusted = event.origin === "https://script.google.com" || event.origin.endsWith(".googleusercontent.com");
@@ -344,7 +327,7 @@
       const message = document.getElementById("message");
       const data = new FormData(form);
       const guestData = [...guests.children].map(guest => Object.fromEntries([...guest.querySelectorAll("[data-field]")].map(element => [element.dataset.field, element.value])));
-      const payload = { householdName: data.get("householdName"), phone: data.get("phone"), email: data.get("email"), notes: data.get("notes"), consent: data.get("consent") === "on", website: data.get("website"), guests: guestData, submittedAt: new Date().toISOString() };
+      const payload = { respondentName: guestData[0]?.name || "", consent: data.get("consent") === "on", website: data.get("website"), guests: guestData, submittedAt: new Date().toISOString() };
       if (!CONFIG.RSVP_ENDPOINT) {
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
         const anchor = document.createElement("a");
