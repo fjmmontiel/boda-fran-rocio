@@ -284,7 +284,9 @@
   </template>
 
   <script>
-    const CONFIG = { RSVP_ENDPOINT: "" };
+    const CONFIG = {
+      RSVP_ENDPOINT: "https://script.google.com/macros/s/endpoint-retirado/exec"
+    };
     const target = new Date("2027-10-16T12:00:00+02:00").getTime();
     const countdown = document.getElementById("countdown");
     function tick() {
